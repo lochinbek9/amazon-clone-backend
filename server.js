@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -5,9 +6,9 @@ const bcrypt = require("bcryptjs");
 const Products = require("./Products");
 const Users = require("./Users");
 const Orders = require("./Orders");
-const stripe = require("stripe")(
-  "secret"
-);
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+
+const connection_url = process.env.MONGO_URI;
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -18,8 +19,7 @@ app.use(cors());
 
 // connection url
 
-const connection_url =
-  "mongodb+srv://Pdpatel267:admin@cluster0.wiq7i.mongodb.net/Cluster0?retryWrites=true&w=majority";
+
 
 mongoose.connect(connection_url, {
   useNewUrlParser: true,
